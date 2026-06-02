@@ -62,3 +62,34 @@ export async function deleteIdea(id: string) {
 
   revalidatePath("/");
 }
+
+export async function updateIdea(
+  formData: FormData
+) {
+  const id = formData.get("id") as string;
+
+  const title =
+    formData.get("title") as string;
+
+  const description =
+    formData.get("description") as string;
+
+  const ideaType =
+    formData.get("ideaType") as string;
+
+  const { error } = await supabase
+    .from("ideas")
+    .update({
+      title,
+      description,
+      idea_type: ideaType,
+    })
+    .eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/");
+  redirect("/");
+}
