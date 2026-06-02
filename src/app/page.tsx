@@ -35,7 +35,7 @@ export default async function Home() {
             No ideas yet. Capture your first one.
           </div>
         ) : (
-          <IdeaList ideas={ideas} />
+          <IdeaList ideas={ideas ?? []} />
         )}
       </div>
     </main>
