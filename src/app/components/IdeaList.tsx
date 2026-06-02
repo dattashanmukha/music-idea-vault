@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import DeleteButton from "./DeleteButton";
 
 export default function IdeaList({ ideas }: { ideas: any[] }) {
   const [search, setSearch] = useState("");
@@ -27,13 +28,19 @@ export default function IdeaList({ ideas }: { ideas: any[] }) {
             key={idea.id}
             className="border rounded-lg p-4 shadow-sm"
           >
-            <h2 className="text-xl font-semibold">
-              {idea.title}
-            </h2>
+            <div className="flex justify-between items-start">
+              <div>
+                <h2 className="text-xl font-semibold">
+                  {idea.title}
+                </h2>
 
-            <p className="text-sm text-gray-500 mb-2">
-              {idea.idea_type}
-            </p>
+                <p className="text-sm text-gray-500 mb-2">
+                  {idea.idea_type}
+                </p>
+              </div>
+
+              <DeleteButton id={idea.id} />
+            </div>
 
             <p>{idea.description}</p>
 

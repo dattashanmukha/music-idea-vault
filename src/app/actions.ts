@@ -24,3 +24,16 @@ export async function createIdea(formData: FormData) {
 
   redirect("/");
 }
+
+export async function deleteIdea(id: string) {
+  "use server";
+
+  const { error } = await supabase
+    .from("ideas")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+}
