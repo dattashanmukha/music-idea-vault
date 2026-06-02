@@ -1,6 +1,17 @@
+"use client";
+
+import { useState } from "react";
 import { createIdea } from "../actions";
+import AudioRecorder from "../components/AudioRecorder";
 
 export default function AddIdeaPage() {
+  const [audioSource, setAudioSource] = useState<
+    "record" | "upload"
+  >("record");
+
+  const [recordedFile, setRecordedFile] =
+    useState<File | null>(null);
+
   return (
     <main className="p-8">
       <h1 className="text-3xl font-bold mb-6">
@@ -42,17 +53,59 @@ export default function AddIdeaPage() {
           <option value="Other">Other</option>
         </select>
 
-        <div>
-          <label className="block mb-2">
-            Audio Recording
-          </label>
+        <div className="border rounded-lg p-4">
+          <h3 className="font-semibold mb-3">
+            Audio Source
+          </h3>
 
-          <input
-            type="file"
-            name="audio"
-            accept="audio/*"
-            className="border p-2 w-full"
-          />
+          <div className="flex gap-6 mb-4">
+            <label>
+              <input
+                type="radio"
+                checked={audioSource === "record"}
+                onChange={() =>
+                  setAudioSource("record")
+                }
+              />{" "}
+              Record Audio
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                checked={audioSource === "upload"}
+                onChange={() =>
+                  setAudioSource("upload")
+                }
+              />{" "}
+              Upload File
+            </label>
+          </div>
+
+          {audioSource === "record" && (
+            <>
+              <AudioRecorder
+                onRecordingComplete={(file) => {
+                  setRecordedFile(file);
+                }}
+              />
+
+              {recordedFile && (
+                <p className="text-green-600 mt-2">
+                  ✅ Recording ready to save
+                </p>
+              )}
+            </>
+          )}
+
+          {audioSource === "upload" && (
+            <input
+              type="file"
+              name="audio"
+              accept="audio/*"
+              className="border p-2 w-full"
+            />
+          )}
         </div>
 
         <button
