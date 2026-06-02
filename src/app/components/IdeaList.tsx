@@ -42,13 +42,27 @@ export default function IdeaList({ ideas }: { ideas: any[] }) {
               <DeleteButton id={idea.id} />
             </div>
 
-            <p>{idea.description}</p>
+            <div>
+  <p>{idea.description}</p>
 
-            <p className="text-xs text-gray-400 mt-3">
-              {new Date(
-                idea.created_at
-              ).toLocaleString()}
-            </p>
+  {idea.audio_url && (
+    <audio
+      controls
+      className="mt-3 w-full"
+    >
+      <source
+        src={idea.audio_url}
+      />
+      Your browser does not support audio.
+    </audio>
+  )}
+
+  <p className="text-xs text-gray-400 mt-3">
+    {new Date(
+      idea.created_at
+    ).toISOString()}
+  </p>
+</div>
           </div>
         ))}
       </div>

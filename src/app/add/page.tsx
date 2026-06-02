@@ -7,7 +7,11 @@ export default function AddIdeaPage() {
         Add Idea
       </h1>
 
-      <form action={createIdea} className="space-y-4">
+      <form
+        action={createIdea}
+        encType="multipart/form-data"
+        className="space-y-4"
+      >
         <input
           name="title"
           type="text"
@@ -37,6 +41,19 @@ export default function AddIdeaPage() {
           <option value="Score">Score</option>
           <option value="Other">Other</option>
         </select>
+
+        <div>
+          <label className="block mb-2">
+            Audio Recording
+          </label>
+
+          <input
+            type="file"
+            name="audio"
+            accept="audio/*"
+            className="border p-2 w-full"
+          />
+        </div>
 
         <button
           type="submit"
